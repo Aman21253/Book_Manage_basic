@@ -43,11 +43,11 @@ def add_book(request):
         author = request.POST.get("author", "").strip()
         isbn = request.POST.get("isbn", "").strip()
         price = request.POST.get("price", "").strip()
-        # pages = request.POST.get("pages", "").strip()
+        pages = request.POST.get("pages", "").strip()
         quantity = request.POST.get("quantity", "").strip()
         description = request.POST.get("description", "").strip()
 
-        if not title or not author or not isbn or not price or not quantity or not description:
+        if not title or not author or not isbn or not price or not quantity or not pages or not description:
             messages.error(request, "All fields are required.")
             return render(request, "add_book.html")
 
@@ -76,7 +76,7 @@ def add_book(request):
             author=author,
             isbn=isbn,
             price=price,
-            # pages=pages,
+            pages=pages,
             quantity=quantity,
             description=description
         )

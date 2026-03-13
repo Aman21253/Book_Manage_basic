@@ -6,7 +6,7 @@ class Book(models.Model):
     author = models.CharField(max_length=150)
     isbn = models.CharField(max_length=13, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    # pages = models.PositiveIntegerField(null=True, blank=True)
+    pages = models.PositiveIntegerField(null=True, blank=True)
     quantity = models.PositiveIntegerField()
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
