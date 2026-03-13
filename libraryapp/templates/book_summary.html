@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Summary{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Book Summary &gt; {{ book.title }}</h2>
+    </div>
+    <div class="card-body">
+        <div class="summary-box">
+            <p><strong>Book Name:</strong> {{ book.title }}</p>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+            <p><strong>Price:</strong> ₹{{ book.price }}</p>
+            <p><strong>Quantity:</strong> {{ book.quantity }}</p>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #e5e7eb;">
+
+            <p><strong>Summary:</strong></p>
+            <div class="book-summary-text">
+                {{ book.description }}
+            </div>
+
+            <div style="margin-top: 25px;">
+                <a href="{% url 'book_details' %}" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .summary-box p{
+        margin-bottom: 12px;
+        color: #1f2937;
+        font-size: 16px;
+    }
+
+    .book-summary-text{
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 18px;
+        min-height: 180px;
+        color: #ef4444;
+        line-height: 1.8;
+        font-size: 17px;
+    }
+</style>
+{% endblock %}

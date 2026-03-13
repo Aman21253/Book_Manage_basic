@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color:#f2f2f2;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            margin:0;
+        }
+
+        .login-container{
+            background:white;
+            padding:35px;
+            border-radius:8px;
+            width:380px;
+            box-shadow:0px 0px 12px rgba(0,0,0,0.1);
+        }
+
+        h2{
+            margin-bottom:5px;
+            color:#1f2d5c;
+        }
+
+        p{
+            color:#666;
+            margin-bottom:20px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:6px;
+            color:#1f2d5c;
+            font-weight:500;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            margin-bottom:18px;
+            border-radius:5px;
+            border:1px solid #ccd3df;
+            box-sizing:border-box;
+            background:#eef4ff;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#3559e6;
+            color:white;
+            border:none;
+            border-radius:5px;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#2747c7;
+        }
+
+        .message{
+            color:red;
+            margin-bottom:12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <p>Enter your details to login into the system.</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label>Email:</label>
+            <input type="email" name="email" placeholder="Enter email" required>
+
+            <label>Password:</label>
+            <input type="password" name="password" placeholder="Enter password" required>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+</body>
+</html>

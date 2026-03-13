@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f4f6fb;
+        }
+
+        .main-wrapper{
+            display:flex;
+            min-height:100vh;
+        }
+
+        .sidebar{
+            width:250px;
+            background:white;
+            border-right:1px solid #e5e7eb;
+            padding:20px 0;
+        }
+
+        .logo{
+            font-size:32px;
+            font-weight:bold;
+            color:#2d3748;
+            padding:0 25px 25px 25px;
+            border-bottom:1px solid #edf2f7;
+        }
+
+        .logo span{
+            color:#3559e6;
+        }
+
+        .menu-title{
+            font-size:15px;
+            font-weight:600;
+            color:#4a5568;
+            margin:20px 25px 10px;
+        }
+
+        .sidebar ul{
+            list-style:none;
+            padding:0 15px;
+        }
+
+        .sidebar ul li{
+            margin-bottom:10px;
+        }
+
+        .sidebar ul li a{
+            display:block;
+            text-decoration:none;
+            padding:14px 16px;
+            border-radius:6px;
+            color:#4a5568;
+            font-size:16px;
+            transition:0.3s;
+        }
+
+        .sidebar ul li a:hover{
+            background:#eef2ff;
+            color:#3559e6;
+        }
+
+        .sidebar ul li a.active{
+            background:#3559e6;
+            color:white;
+            box-shadow:0 4px 10px rgba(53, 89, 230, 0.25);
+        }
+
+        .content{
+            flex:1;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .topbar{
+            background:white;
+            border-bottom:1px solid #e5e7eb;
+            padding:18px 30px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .search-box input{
+            width:280px;
+            padding:10px 14px;
+            border:1px solid #d6dbe6;
+            border-radius:6px;
+            outline:none;
+        }
+
+        .top-right{
+            display:flex;
+            align-items:center;
+            gap:15px;
+        }
+
+        .profile{
+            text-align:right;
+        }
+
+        .profile h4{
+            font-size:16px;
+            color:#1f2937;
+            margin-bottom:3px;
+        }
+
+        .profile p{
+            font-size:13px;
+            color:#6b7280;
+        }
+
+        .avatar{
+            width:42px;
+            height:42px;
+            border-radius:50%;
+            background:#3559e6;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:bold;
+        }
+
+        .page-body{
+            padding:30px;
+        }
+
+        .card{
+            background:white;
+            border-radius:10px;
+            box-shadow:0 1px 8px rgba(0,0,0,0.06);
+            overflow:hidden;
+        }
+
+        .card-header{
+            padding:22px 24px;
+            border-bottom:1px solid #edf2f7;
+        }
+
+        .card-header h2{
+            font-size:20px;
+            color:#1f2d5c;
+        }
+
+        .card-body{
+            padding:24px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        table th{
+            background:#3559e6;
+            color:white;
+            padding:14px;
+            text-align:left;
+            font-size:15px;
+        }
+
+        table td{
+            padding:14px;
+            border-bottom:1px solid #edf2f7;
+            color:#374151;
+        }
+
+        .form-row{
+            display:flex;
+            gap:20px;
+            margin-bottom:18px;
+        }
+
+        .form-group{
+            flex:1;
+        }
+
+        .form-group label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:600;
+            color:#374151;
+        }
+
+        .form-group input,
+        .form-group textarea{
+            width:100%;
+            padding:12px;
+            border:1px solid #d6dbe6;
+            border-radius:6px;
+            outline:none;
+        }
+
+        .form-group textarea{
+            min-height:110px;
+            resize:vertical;
+        }
+
+        .btn-group{
+            margin-top:10px;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:11px 20px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            text-decoration:none;
+            font-size:15px;
+            margin-right:10px;
+        }
+
+        .btn-success{
+            background:#16a34a;
+            color:white;
+        }
+
+        .btn-secondary{
+            background:white;
+            border:1px solid #94a3b8;
+            color:#334155;
+        }
+
+        .logout-btn{
+            text-decoration:none;
+            color:white;
+            background:#3559e6;
+            padding:10px 16px;
+            border-radius:6px;
+        }
+
+        .action-eye{
+            color:#3559e6;
+            font-size:18px;
+            text-decoration:none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+
+    <div class="sidebar">
+        <div class="logo"><span></span> Book system</div>
+        <div class="menu-title">Home</div>
+
+        <ul>
+            <li>
+                <a href="{% url 'add_book' %}" class="{% if request.resolver_match.url_name == 'add_book' %}active{% endif %}">
+                    Add Book
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'book_details' %}" class="{% if request.resolver_match.url_name == 'book_details' %}active{% endif %}">
+                    Book Details
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'add_student' %}" class="{% if request.resolver_match.url_name == 'add_student' %}active{% endif %}">
+                    Add Student
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'student_details' %}" class="{% if request.resolver_match.url_name == 'student_details' %}active{% endif %}">
+                    Student Details
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="topbar">
+            <div class="search-box">
+                <form method="GET" action="{% url 'book_details' %}">
+                    <input 
+                        type="text"
+                        name="search"
+                        placeholder="Search by book, author, ISBN..."
+                        value="{{ search_query|default:'' }}"
+                    >
+                </form>
+            </div>
+
+            <div class="top-right">
+                <div class="profile">
+                    <h4>{{ request.user.username }}</h4>
+                    <p>Administrator</p>
+                </div>
+                <div class="avatar">
+                    {{ request.user.username|slice:":1"|upper }}
+                </div>
+                <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+            </div>
+        </div>
+
+        <div class="page-body">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
