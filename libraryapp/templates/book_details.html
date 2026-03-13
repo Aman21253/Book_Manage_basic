@@ -31,7 +31,7 @@
                     <th>Author</th>
                     <th>ISBN</th>
                     <th>Price (₹)</th>
-                    <th>Pages</th>
+                    {% comment %} <th>Pages</th> {% endcomment %}
                     <th>Quantity</th>
                     <th>Actions</th>
                 </tr>
@@ -45,7 +45,7 @@
                         <td>{{ book.author }}</td>
                         <td>{{ book.isbn }}</td>
                         <td>{{ book.price }}</td>
-                        <td>{{ book.pages }}</td>
+                        {% comment %} <td>{{ book.pages }}</td> {% endcomment %}
                         <td>{{ book.quantity }}</td>
                         <td>
                             <a href="{% url 'book_summary' book.id %}" class="action-eye">👁</a>
